@@ -38,6 +38,7 @@ public class Author {
   }
 
   public void update(String name) {
+    this.name = name;
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE authors SET name =:name WHERE id = :id";
       con.createQuery(sql)
@@ -77,17 +78,17 @@ public class Author {
 
  public void addBook(Book book){
    try(Connection con = DB.sql2o.open()){
-     String sql = "INSERT INTO books_authors (author_id, book_id) VALUES (:author_id, :book_id)";
+     String sql = "INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)";
      con.createQuery(sql)
-     .addParameter("author_id", this.getId())
      .addParameter("book_id", book.getId())
+     .addParameter("author_id", this.getId())
      .executeUpdate();
    }
  }
 
  public ArrayList<Book> getBooks() {
    try(Connection con = DB.sql2o.open()){
-     String sql = "SELECT book_id FROM books_authors WHERE author_id =: author_id";
+     String sql = "SELECT book_id FROM books_authors WHERE author_id =:author_id";
      List<Integer> bookIds = con.createQuery(sql)
      .addParameter("author_id", this.getId())
      .executeAndFetch(Integer.class);

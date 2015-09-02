@@ -31,7 +31,7 @@ public class BookTest {
   public void getId_returnsCorrectId(){
     Book myBook = new Book ("Pride and Prejudice");
     myBook.save();
-    myBook.getId();
+  //  myBook.getId();
     assertEquals(Book.all().get(0).getId(), myBook.getId());
   }
 
