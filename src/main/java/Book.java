@@ -113,4 +113,30 @@ public class Book {
        .executeUpdate();
      }
    }
+
+  //  public List<Copy> getCopiesOfBook(){
+  //    try(Connection con = DB.sql2o.open()){
+  //      String sql = "SELECT copies.* FROM" +
+  //           " books"+
+  //           " JOIN copies ON (books.id = copies.book_id)"+
+  //           " WHERE copies.book_id =:id";
+  //      List<Copy> copies = con.createQuery(sql)
+  //             .addParameter("id", this.getId())
+  //             .executeAndFetch(Copy.class);
+  //             return copies;
+  //    }
+  //  }
+
+  //  public int getNumberOfCopieOfBook(){
+  //    try(Connection con = DB.sql2o.open()){
+  //      String sql = "SELECT * FROM copies WHERE book_id=:book_id";
+  //      List<Copy> copies = con.createQuery(sql)
+  //             .addParameter("book_id", this.getId())
+  //             .executeAndFetch(Copy.class);
+  //       int copyNum = copies.size();
+  //       return copyNum;
+  //    }
+  //  }
+
+
 }
