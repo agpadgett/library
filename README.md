@@ -1,12 +1,12 @@
-# _University Registrar_
+# _Library_
 
-##### _Create a University registrar. Date of current version: 09/01/15_
+##### _Create a library catalogue system. Date of current version: 09/02/15_
 
-#### By _**Archana Bongale and Jennifer Morkunas**_
+#### By _**Archana Bongale and Andrea Padgett**_
 
 ## Description
 
-Follow instructions on each form to add a list of students and courses. Assign students to a course, so that teachers know which students are in their course. A course can have many students and a student can take many courses at the same time.
+Follow instructions on each form to add a list of authors and books. Link books and authors together, so that you can search by author or title. Keeps track of checkouts and multiple copies of the same book.
 
 ## Setup
 
@@ -25,7 +25,7 @@ Java, Velocity Templating, Postgres Database, HTML and CSS
 
 ### Legal
 
-Copyright (c) 2015 **Archana Bongale and Jennifer Morkunas**
+Copyright (c) 2015 **Archana Bongale and Andrea Padgett**
 
 This software is licensed under the MIT license.
 
