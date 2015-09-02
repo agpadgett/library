@@ -67,4 +67,12 @@ public class AuthorTest {
     myAuthor.delete();
     assertEquals(Author.all().size(),0);
   }
+
+  @Test
+  public void find_returnsCorrectAuthor(){
+    Author myAuthor = new Author ("JK Rowling");
+    myAuthor.save();
+    int myId = myAuthor.getId();
+    assertEquals(myAuthor, Author.find(myId));
+  }
 }
