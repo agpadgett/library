@@ -87,6 +87,8 @@ public class Book {
     }
   }
 
+
+
   public void update(String newTitle){
     this.title = newTitle;
     //Don't forget to do this, otherwise testing titles is a pain
@@ -99,7 +101,7 @@ public class Book {
       .executeUpdate();
     }
   }
-  
+
   public void delete() {
     try(Connection con = DB.sql2o.open()){
       String deleteQuery = "DELETE FROM books WHERE id = :id;";
@@ -114,12 +116,25 @@ public class Book {
     }
   }
 
+
+
   public List<Copy> getCopiesOfBook(){
     try(Connection con = DB.sql2o.open()){
       String sql = "SELECT * FROM copies WHERE book_id =:id";
       return con.createQuery(sql)
       .addParameter("id", this.id)
       .executeAndFetch(Copy.class);
+    }
+  }
+
+  public void addCopy(){
+    try(Connection con = DB.sql2o.open()){
+      int listSize = this.getCopiesOfBook().size() + 1;
+      String sql = "INSERT INTO copies (book_id, copy_number) VALUES (:book_id, :copy_number)";
+      con.createQuery(sql)
+      .addParameter("book_id", this.getId())
+      .addParameter("copy_number", listSize)
+      .executeUpdate();
     }
   }
 

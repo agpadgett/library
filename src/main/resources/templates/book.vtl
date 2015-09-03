@@ -35,4 +35,11 @@
 
   <button type="submit">add</button>
 </form>
+
+<p>Number Available Copies: $numCopies</p>
+<form action="/books/$book.getId()/addCopy" method ="post">
+    <input type = "hidden" name="bookToCopy" id="bookToCopy" value="$book.getId()">
+    <button type="submit" class="btn btn-primary">Add copy</button>
+</form>
+
 <a href='/'>Go to Home</a>

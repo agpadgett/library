@@ -1,0 +1,38 @@
+<h1>$author.getName()</h1>
+
+#if($author.getBooks())
+
+<table class="table table-striped">
+    <tr>
+      <td>book title</td>
+      <td>Delete</td>
+    </tr>
+
+
+
+  #foreach($book in $author.getBooks())
+<tr>
+  <td>$book.getTitle()</td>
+  <td><form action="/authors/$author.getId()/deleteBook/$book.getId()" method = "post">
+      <input type = "hidden" name="deleteBook" id="deleteBook" value="$book.getId()">
+      <button type="submit" class="btn btn-primary">
+      <i class="glyphicon glyphicon-trash"></i></form></td>
+</tr>
+#end
+</table>
+
+#else
+  No books known for this author.
+#end
+
+
+<h2> Add a book to this author</h2>
+
+<form action="/authors/$author.getId()/addBook" method='post'>
+  <input id="authorId" name="authorId" type = "hidden" value ="$author.getId()">
+  <label for="bookTitle">book title</label>
+  <input id="bookTitle" name="bookTitle" type="text">
+
+  <button type="submit">add</button>
+</form>
+<a href='/'>Go to Home</a>

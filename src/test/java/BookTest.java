@@ -87,4 +87,11 @@ public class BookTest {
     assertEquals(myBook.getCopiesOfBook().get(0), myCopy);
   }
 
+  @Test
+  public void addCopyWorks(){
+    Book myBook = new Book("book");
+    myBook.save();
+    myBook.addCopy();
+    assertEquals(1, myBook.getCopiesOfBook().size());
+  }
 }
