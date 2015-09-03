@@ -76,18 +76,15 @@ public class App{
       return null;
     });
 
-    get("/books/:book_id/deleteAuthor/:author_id", (request, response) -> {
-      Map<String,Object> model = new HashMap<String,Object>();
-      int bookId = Integer.parseInt(request.queryParams("book_id"));
-      Book book = Book.find(bookId);
-      int deadAuthorId = Integer.parseInt(request.queryParams("author_id"));
+    post("/books/:book_id/deleteAuthor/:author_id", (request, response) -> {
+      int bookId = Integer.parseInt(request.params("book_id"));
+      int deadAuthorId = Integer.parseInt(request.queryParams("deleteAuthor"));
       Author deadAuthor = Author.find(deadAuthorId);
       deadAuthor.delete();
-      ArrayList<Author> authorList = book.getAuthors();
-      model.put("book", book);
-      model.put("template","templates/book.vtl");
-      return new ModelAndView(model,layout);
-    }, new VelocityTemplateEngine());
+      String deleteAuthPath = String.format("/books/%d", bookId);
+      response.redirect(deleteAuthPath);
+      return null;
+    });
 
 
   }

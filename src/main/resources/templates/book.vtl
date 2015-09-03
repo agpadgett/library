@@ -1,34 +1,38 @@
 <h1>Title: $book.getTitle()</h1>
-<p>
-#if($book.getAuthors())
-<table border="1" class="table table-striped">
 
-  <th>Author:</th>
-  <th>Delete:</th>
-  <tbody>
-    #foreach($author in $book.getAuthors())
+#if($book.getAuthors())
+
+<table class="table table-striped">
     <tr>
-      <td> Enrollment Date: $author.getName()</td>
-      <td><a href="/books/$book.getId()/deleteAuthor/$author.getId()"><span class="glyphicon glyphicon-trash"></span></a></td>
+      <td>Author</td>
+      <td>Delete</td>
     </tr>
-    #end
-  </tbody>
+
+
+
+  #foreach($author in $book.getAuthors())
+<tr>
+  <td>$author.getName()</td>
+  <td><form action="/books/$book.getId()/deleteAuthor/$author.getId()" method = "post">
+      <input type = "hidden" name="deleteAuthor" id="deleteAuthor" value="$author.getId()">
+      <button type="submit" class="btn btn-primary">
+      <i class="glyphicon glyphicon-trash"></i></form></td>
+</tr>
+#end
 </table>
-<br>
-<a href='/'>Home</a>
 
 #else
   No author known for this book.
 #end
 
-</p>
 
 <h2> Add a author to this book</h2>
 
-<form action="/books/$book.getId()/addAuthor/" method='post'>
+<form action="/books/$book.getId()/addAuthor" method='post'>
   <input id="book_id" name="book_id" type = "hidden" value ="$book.getId()">
-  <label for="authorName">author name</label>
+  <label for="authorName">Author name</label>
   <input id="authorName" name="authorName" type="text">
 
   <button type="submit">add</button>
 </form>
+<a href='/'>Go to Home</a>
