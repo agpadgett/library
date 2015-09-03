@@ -1,0 +1,17 @@
+<p>Add a new author:</p>
+
+<form action="/authors" method="post">
+  <label for="name">Add a author:</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit" class="btn btn-success">Add author</button>
+</form>
+<br>
+Authors:
+<ol>
+#foreach ($author in $authors)
+
+ <li><a href="/authors/$author.getId()">$author.getName()</a></li>
+#end
+</ol>
+<p><a href='/'>Home</a></p>
