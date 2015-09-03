@@ -55,10 +55,24 @@ public class CopyTest{
     assertEquals(myCopy,Copy.find(myCopyId));
   }
 
+  @Test
   public void delete_removesFromTheDatabase() {
     Copy myCopy = new Copy(5,5);
     myCopy.save();
     myCopy.delete();
     assertEquals(Copy.all().size(),0);
+  }
+
+  @Test
+  public void checkout_checkoutWorks(){
+    Book myBook = new Book("a book");
+    myBook.save();
+    int bookId = myBook.getId();
+    Copy myCopy = new Copy(1,bookId);
+    myCopy.save();
+    Patron myPatron = new Patron("Stan");
+    myPatron.save();
+    myCopy.checkout("Dec 1", myPatron);
+    assertEquals("Dec 1", myCopy.getDueDate());
   }
 }

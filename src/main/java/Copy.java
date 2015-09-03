@@ -19,6 +19,7 @@ public class Copy {
     return book_id;
   }
 
+
   public Copy(int copy_number, int book_id){
     this.copy_number = copy_number;
     this.book_id = book_id;
@@ -39,8 +40,8 @@ public class Copy {
     } else {
       Copy newCopy = (Copy) otherCopy;
       return this.getId() == newCopy.getId()&&
-             this.getCopyNumber() == newCopy.getCopyNumber()&&
-             this.getBookId() == newCopy.getBookId();
+      this.getCopyNumber() == newCopy.getCopyNumber()&&
+      this.getBookId() == newCopy.getBookId();
     }
   }
 
@@ -73,6 +74,29 @@ public class Copy {
       return copy;
     }
   }
+
+  public void checkout(String dueDate, Patron patron){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO checkout (patron_id, copy_id, due_date) VALUES (:patron_id, :copy_id, :due_date)";
+      con.createQuery(sql)
+      .addParameter("patron_id", patron.getId())
+      .addParameter("copy_id", this.id)
+      .addParameter("due_date", dueDate)
+      .executeUpdate();
+    }
+  }
+
+  public String getDueDate(){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT due_date FROM checkout WHERE copy_id=:id";
+      String dueDate = con.createQuery(sql)
+      .addParameter("id", this.id)
+      .executeAndFetchFirst(String.class);
+
+      return dueDate;
+    }
+  }
+
 
 
 }

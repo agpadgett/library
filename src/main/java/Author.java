@@ -29,12 +29,12 @@ public class Author {
     }
   }
   public void delete(int id){
-      try (Connection con = DB.sql2o.open()) {
-        String sql = "DELETE FROM authors WHERE id = :id";
-        con.createQuery(sql)
-        .addParameter("id",id)
-        .executeUpdate();
-      }
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM authors WHERE id = :id";
+      con.createQuery(sql)
+      .addParameter("id",id)
+      .executeUpdate();
+    }
   }
 
   public void update(String name) {
@@ -48,77 +48,77 @@ public class Author {
     }
   }
 
- public static List<Author> all() {
-   String sql = "SELECT * FROM authors ORDER BY name ASC";
-   try(Connection con = DB.sql2o.open()) {
-     return con.createQuery(sql)
-     .executeAndFetch(Author.class);
-   }
- }
+  public static List<Author> all() {
+    String sql = "SELECT * FROM authors ORDER BY name ASC";
+    try(Connection con = DB.sql2o.open()) {
+      return con.createQuery(sql)
+      .executeAndFetch(Author.class);
+    }
+  }
 
- public void save() {
-   try(Connection con  = DB.sql2o.open()) {
-     String sql = "INSERT INTO authors (name) VALUES (:name)";
-     this.id = (int) con.createQuery(sql, true)
-     .addParameter("name", name)
-     .executeUpdate()
-     .getKey();
-   }
- }
+  public void save() {
+    try(Connection con  = DB.sql2o.open()) {
+      String sql = "INSERT INTO authors (name) VALUES (:name)";
+      this.id = (int) con.createQuery(sql, true)
+      .addParameter("name", name)
+      .executeUpdate()
+      .getKey();
+    }
+  }
 
- public static Author find (int id) {
-   try(Connection con = DB.sql2o.open()){
-     String sql = "SELECT * FROM authors WHERE id = :id";
-     Author author = con.createQuery(sql)
-     .addParameter("id", id)
-     .executeAndFetchFirst(Author.class);
-     return author;
-   }
- }
+  public static Author find (int id) {
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT * FROM authors WHERE id = :id";
+      Author author = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Author.class);
+      return author;
+    }
+  }
 
- public void addBook(Book book){
-   try(Connection con = DB.sql2o.open()){
-     String sql = "INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)";
-     con.createQuery(sql)
-     .addParameter("book_id", book.getId())
-     .addParameter("author_id", this.getId())
-     .executeUpdate();
-   }
- }
+  public void addBook(Book book){
+    try(Connection con = DB.sql2o.open()){
+      String sql = "INSERT INTO books_authors (book_id, author_id) VALUES (:book_id, :author_id)";
+      con.createQuery(sql)
+      .addParameter("book_id", book.getId())
+      .addParameter("author_id", this.getId())
+      .executeUpdate();
+    }
+  }
 
- public ArrayList<Book> getBooks() {
-   try(Connection con = DB.sql2o.open()){
-     String sql = "SELECT book_id FROM books_authors WHERE author_id =:author_id";
-     List<Integer> bookIds = con.createQuery(sql)
-     .addParameter("author_id", this.getId())
-     .executeAndFetch(Integer.class);
+  public ArrayList<Book> getBooks() {
+    try(Connection con = DB.sql2o.open()){
+      String sql = "SELECT book_id FROM books_authors WHERE author_id =:author_id";
+      List<Integer> bookIds = con.createQuery(sql)
+      .addParameter("author_id", this.getId())
+      .executeAndFetch(Integer.class);
 
-     ArrayList<Book> books = new ArrayList<Book>();
+      ArrayList<Book> books = new ArrayList<Book>();
 
-     for (Integer bookId : bookIds){
-       String authorQuery = "SELECT * FROM books WHERE id =:bookId";
-       Book book = con.createQuery(authorQuery)
-       .addParameter("bookId", bookId)
-       .executeAndFetchFirst(Book.class);
-       books.add(book);
-     }
+      for (Integer bookId : bookIds){
+        String authorQuery = "SELECT * FROM books WHERE id =:bookId";
+        Book book = con.createQuery(authorQuery)
+        .addParameter("bookId", bookId)
+        .executeAndFetchFirst(Book.class);
+        books.add(book);
+      }
 
-     return books;
-   }
- }
+      return books;
+    }
+  }
 
- public void delete(){
-   try(Connection con = DB.sql2o.open()){
-     String deleteQuery = "DELETE FROM authors WHERE id =:id;";
-     con.createQuery(deleteQuery)
-     .addParameter("id", id)
-     .executeUpdate();
+  public void delete(){
+    try(Connection con = DB.sql2o.open()){
+      String deleteQuery = "DELETE FROM authors WHERE id =:id;";
+      con.createQuery(deleteQuery)
+      .addParameter("id", id)
+      .executeUpdate();
 
-     String joinDeleteQuery = "DELETE FROM books_authors WHERE author_id =:authorId";
-     con.createQuery(joinDeleteQuery)
-     .addParameter("authorId", this.getId())
-     .executeUpdate();
-   }
- }
+      String joinDeleteQuery = "DELETE FROM books_authors WHERE author_id =:authorId";
+      con.createQuery(joinDeleteQuery)
+      .addParameter("authorId", this.getId())
+      .executeUpdate();
+    }
+  }
 
 }

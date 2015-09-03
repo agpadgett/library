@@ -43,10 +43,10 @@ public class PatronTest {
 
   @Test
   public void find_returnsCorrectPatron() {
-     Patron myPatron = new Patron("Ethen");
-     myPatron.save();
-     int myId = myPatron.getId();
-     assertEquals(myPatron, Patron.find(myId));
+    Patron myPatron = new Patron("Ethen");
+    myPatron.save();
+    int myId = myPatron.getId();
+    assertEquals(myPatron, Patron.find(myId));
   }
 
   @Test

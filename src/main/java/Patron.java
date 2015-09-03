@@ -25,7 +25,7 @@ public class Patron{
     } else {
       Patron newPatron = (Patron) otherPatron;
       return this.getName().equals(newPatron.getName()) &&
-             this.getId() == newPatron.getId();
+      this.getId() == newPatron.getId();
     }
   }
 
@@ -84,11 +84,12 @@ public class Patron{
       " JOIN copies ON (checkout.copy_id = copies.id)" +
       " WHERE patrons.id =:id";
       List<Copy> copies = con.createQuery(sql)
-          .addParameter("id", this.id)
-          .executeAndFetch(Copy.class);
-          return copies;
+      .addParameter("id", this.id)
+      .executeAndFetch(Copy.class);
+      return copies;
     }
   }
+
 
   public void delete(){
     try(Connection con = DB.sql2o.open()){

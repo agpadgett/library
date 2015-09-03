@@ -31,7 +31,7 @@ public class BookTest {
   public void getId_returnsCorrectId(){
     Book myBook = new Book ("Pride and Prejudice");
     myBook.save();
-  //  myBook.getId();
+    //  myBook.getId();
     assertEquals(Book.all().get(0).getId(), myBook.getId());
   }
 
@@ -68,14 +68,6 @@ public class BookTest {
     assertEquals("Pride and Prejudice AND ZOMBIES", myBook.getTitle());
   }
 
-  // @Test
-  // public void update_changesBookTitle(){
-  //   Book myBook = new Book ("Pride and Prejudice");
-  //   myBook.save();
-  //   myBook.update("Pride and Prejudice AND ZOMBIES");
-  //   Book savedBook = Book.find(myBook.getId());
-  //   assertEquals("Pride and Prejudice AND ZOMBIES", savedBook.getTitle());
-  // }
 
   @Test
   public void delete_deletesBook(){
@@ -91,7 +83,8 @@ public class BookTest {
     myBook.save();
     int bookId = myBook.getId();
     Copy myCopy = new Copy(1, bookId);
-    assertEquals(myBook.getCopiesOfBook().size(), 1);
+    myCopy.save();
+    assertEquals(myBook.getCopiesOfBook().get(0), myCopy);
   }
 
 }
